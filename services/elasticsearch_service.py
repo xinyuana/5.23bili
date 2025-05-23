@@ -672,6 +672,10 @@ class ElasticsearchService:
 class MockElasticsearchClient:
     """模拟Elasticsearch客户端，用于在ES不可用时避免应用崩溃"""
     
+    def __init__(self):
+        self.options = MockOptions()
+        self.transport = MockTransport()
+    
     def info(self):
         return {"version": {"number": "mock"}}
     
@@ -685,6 +689,29 @@ class MockElasticsearchClient:
                 'total': {'value': 0}
             }
         }
+    
+    def count(self, **kwargs):
+        return {'count': 0}
+    
+    def index(self, **kwargs):
+        return {'_id': 'mock_id', 'result': 'created'}
+    
+    def bulk(self, **kwargs):
+        # 模拟bulk操作成功
+        return {
+            'errors': False,
+            'items': []
+        }
+
+
+class MockOptions:
+    def __init__(self):
+        self.request_timeout = 30
+
+
+class MockTransport:
+    def __init__(self):
+        self.hosts = [{'host': 'localhost', 'port': 9200}]
 
 
 class MockIndices:
@@ -692,4 +719,7 @@ class MockIndices:
         return False
     
     def create(self, **kwargs):
+        pass
+    
+    def delete(self, **kwargs):
         pass 

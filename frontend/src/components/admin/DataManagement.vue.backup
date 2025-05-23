@@ -287,11 +287,6 @@ import api from '@/utils/api'
 const activeTab = ref('account')
 const loadingStats = ref(false)
 
-// 上传组件引用
-const accountUpload = ref(null)
-const videoUpload = ref(null)
-const commentUpload = ref(null)
-
 // 上传状态
 const uploading = reactive({
   account: false,
@@ -400,13 +395,10 @@ const uploadFile = async (type) => {
       ElMessage.success(response.data.message)
       uploadFiles[type] = null
       // 清除上传组件中的文件
-      const uploadRefMap = {
-        account: accountUpload,
-        video: videoUpload,
-        comment: commentUpload
-      }
-      if (uploadRefMap[type]?.value) {
-        uploadRefMap[type].value.clearFiles()
+      const uploadRef = type === 'account' ? 'accountUpload' : 
+                       type === 'video' ? 'videoUpload' : 'commentUpload'
+      if (this.$refs[uploadRef]) {
+        this.$refs[uploadRef].clearFiles()
       }
       // 刷新统计
       setTimeout(() => loadStatistics(), 2000)

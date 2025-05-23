@@ -12,3 +12,15 @@
   warnings.warn(
  * Debugger is active!
  * Debugger PIN: 272-915-924
+Traceback (most recent call last):
+  File "/Users/xinyuan/Desktop/评论检索/app.py", line 304, in <module>
+    app.run(debug=True, host='0.0.0.0', port=5001) 
+  File "/Users/xinyuan/Library/Python/3.9/lib/python/site-packages/flask/app.py", line 889, in run
+    run_simple(t.cast(str, host), port, self, **options)
+  File "/Users/xinyuan/Library/Python/3.9/lib/python/site-packages/werkzeug/serving.py", line 1097, in run_simple
+    run_with_reloader(
+  File "/Users/xinyuan/Library/Python/3.9/lib/python/site-packages/werkzeug/_reloader.py", line 446, in run_with_reloader
+    ensure_echo_on()
+  File "/Users/xinyuan/Library/Python/3.9/lib/python/site-packages/werkzeug/_reloader.py", line 426, in ensure_echo_on
+    termios.tcsetattr(sys.stdin, termios.TCSANOW, attributes)
+termios.error: (4, 'Interrupted system call')
